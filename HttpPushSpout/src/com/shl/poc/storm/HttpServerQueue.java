@@ -79,7 +79,6 @@ public class HttpServerQueue extends Thread {
 				}
 			}, 0, TTW);
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}

@@ -1,5 +1,5 @@
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.time.StopWatch;
+  import org.apache.commons.lang.time.StopWatch;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,13 +18,16 @@ public class HttpTestClient {
 
 
 	private static final int COUNT = 10000;
-	private static final long DELAY = 5;
+	private static final int TIMEOUT = 20;
+
 	final static String[] words = new String[] {"nathan", "mike", "jackson", "golda", "bertels"};
-	final static Random rand = new Random();
 	public static final String CHARSET_NAME = "UTF-8";
+	final static Random rand = new Random();
 
 	public static void main(String[] args) {
-		final String host = args.length > 0 ? args[0] : "elevterius";
+		final String host = args.length > 0 ? args[0] : "localhost";
+		final int port = args.length > 1 ? Integer.parseInt(args[1]) : 9998;
+		final String stormRequestUrl = getStormRequestUrl(host, port);
 		StopWatch stopWatch = new StopWatch();
 		int code = 200;
 		for (int i = 0 ; i < COUNT; i++){
@@ -33,7 +36,7 @@ public class HttpTestClient {
 			new Thread(){
 				@Override
 				public void run() {
-					int code = doRequest("http://" + host + ":9998/spout", "{\"personId\" : 100, \"comment\"  : \"" + getWord() + "\" , \"date\": \"21-12-2013\"}");
+					int code = doRequest(stormRequestUrl, getJson());
 					if (code != 200) {
 						System.out.println("Unexpected return code: " + code + ", requests sent: " + _i);
 					}
@@ -42,7 +45,7 @@ public class HttpTestClient {
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+				e.printStackTrace();
 			}
 			stopWatch.reset();
 		}
@@ -67,7 +70,7 @@ public class HttpTestClient {
 			output.write(json.getBytes(CHARSET_NAME));
 			response = connection.getInputStream();
 			reader = new BufferedReader(new InputStreamReader(response, CHARSET_NAME));
-			for (String line; (line = reader.readLine()) != null;) {
+			for (String line; (line = reader.readLine()) != null;) { // explicitly read response content
 			}
 			status = connection.getResponseCode();
 		} catch (IOException e) {
@@ -85,4 +88,13 @@ public class HttpTestClient {
 	private static String getWord() {
 		return words[rand.nextInt(words.length)];
 	}
+
+	private static String getStormRequestUrl(String host, int port) {
+		return "http://" + host + ":" + port + "/spout";
+	}
+
+	private static String getJson() {
+		return "{\"personId\" : 100, \"comment\"  : \"" + getWord() + "\" , \"date\": \"21-12-2013\"}";
+	}
+
 }

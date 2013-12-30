@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/HttpPushSpout/HttpPushSpout.iml" filepath="$PROJECT_DIR$/HttpPushSpout/HttpPushSpout.iml" />
       <module fileurl="file://$PROJECT_DIR$/StormConcepts.iml" filepath="$PROJECT_DIR$/StormConcepts.iml" />
     </modules>
   </component>

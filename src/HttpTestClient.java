@@ -1,5 +1,5 @@
+import com.shl.poc.storm.HttpServerQueue;
 import org.apache.commons.io.IOUtils;
-  import org.apache.commons.lang.time.StopWatch;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * User: yshuliga
@@ -16,43 +19,52 @@ import java.util.Random;
  */
 public class HttpTestClient {
 
+	public static final String LOCALHOST = "localhost";
 
-	private static final int COUNT = 10000;
-	private static final int TIMEOUT = 20;
+	static final int DELAY = 1;
+	static final int RPS = 500;
+	static final int ONE_SECOND = 1000;
 
-	final static String[] words = new String[] {"nathan", "mike", "jackson", "golda", "bertels"};
-	public static final String CHARSET_NAME = "UTF-8";
-	final static Random rand = new Random();
+	static final int TTW = 1000;
+
+	static AtomicInteger requestsCount = new AtomicInteger();
+	static AtomicInteger failedRequestsCount = new AtomicInteger();
+	static Timer timer;
+
+	static final String[] words = new String[] {"nathan", "mike", "jackson", "golda", "bertels"};
+	static final String CHARSET_NAME = "UTF-8";
+	static final Random rand = new Random();
 
 	public static void main(String[] args) {
-		final String host = args.length > 0 ? args[0] : "localhost";
-		final int port = args.length > 1 ? Integer.parseInt(args[1]) : 9998;
+		assertTimingParameters();
+		final String host = args.length > 0 ? args[0] : LOCALHOST;
+		final int port = args.length > 1 ? Integer.parseInt(args[1]) : HttpServerQueue.PORT;
 		final String stormRequestUrl = getStormRequestUrl(host, port);
-		StopWatch stopWatch = new StopWatch();
-		int code = 200;
-		for (int i = 0 ; i < COUNT; i++){
-			stopWatch.start();
-			final int _i = i;
+		initCounterLogging(TTW);
+		System.out.println("Test started.");
+		do {
 			new Thread(){
 				@Override
 				public void run() {
 					int code = doRequest(stormRequestUrl, getJson());
-					if (code != 200) {
-						System.out.println("Unexpected return code: " + code + ", requests sent: " + _i);
+					if (code == HttpServerQueue.CODE_OK) {
+						requestsCount.incrementAndGet();
+					} else {
+						failedRequestsCount.incrementAndGet();
 					}
 				}
 			}.start();
 			try {
-				Thread.sleep(1);
+				Thread.sleep(ONE_SECOND / RPS - DELAY );
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			stopWatch.reset();
-		}
+		} while (requestsCount.get() < HttpServerQueue.REQUESTS_COUNT);
+		stopTest();
 	}
 
 	private static int doRequest(String url, String json){
-		HttpURLConnection connection = null;
+		HttpURLConnection connection;
 		try {
 			connection = (HttpURLConnection)new URL(url).openConnection();
 		} catch (IOException e) {
@@ -74,7 +86,7 @@ public class HttpTestClient {
 			}
 			status = connection.getResponseCode();
 		} catch (IOException e) {
-			status = 530;
+			status = HttpServerQueue.CODE_NO_SERVICE;
 			System.out.println(e.getMessage());
 		} finally {
 			IOUtils.closeQuietly(output);
@@ -95,6 +107,34 @@ public class HttpTestClient {
 
 	private static String getJson() {
 		return "{\"personId\" : 100, \"comment\"  : \"" + getWord() + "\" , \"date\": \"21-12-2013\"}";
+	}
+
+	private static void initCounterLogging(final int timeToWait) {
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				printCounterStats();
+			}
+		}, 0, timeToWait);
+	}
+
+	private static void printCounterStats() {
+		System.out.println(" Requests created: " + requestsCount.get() + ", failed: " + failedRequestsCount.get());
+	}
+
+
+	private static void stopTest() {
+		timer.cancel();
+		printCounterStats();
+		System.out.println("Test complete.");
+	}
+
+	private static void assertTimingParameters() {
+		if ((ONE_SECOND / RPS <= DELAY) || (DELAY >= ONE_SECOND)){
+			System.out.println("Wrong RPS, TTW, DELAY combination. Impossible to execute.");
+			System.exit(-1);
+		}
 	}
 
 }

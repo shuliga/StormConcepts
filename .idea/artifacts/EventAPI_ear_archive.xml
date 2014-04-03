@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="EventAPI:ear archive">
+    <output-path>$PROJECT_DIR$/out/artifacts/EventAPI_ear_archive</output-path>
+    <root id="archive" name="EventAPI_ear_archive.ear">
+      <element id="javaee-facet-resources" facet="EventAPI/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/EventAPI/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="archive" name="EventAPI_war.war">
+        <element id="javaee-facet-resources" facet="EventAPI/web/Web" />
+        <element id="directory" name="WEB-INF">
+          <element id="directory" name="classes">
+            <element id="module-output" name="EventAPI" />
+            <element id="module-output" name="Commons" />
+          </element>
+          <element id="directory" name="lib">
+            <element id="library" level="project" name="gson-2.2.4" />
+          </element>
+        </element>
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/EventAPI/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

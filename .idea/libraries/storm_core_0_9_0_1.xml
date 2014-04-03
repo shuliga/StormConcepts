@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="storm-core-0.9.0.1">
+    <CLASSES>
+      <root url="jar://D:/Tools/storm-0.9.0.1/storm-0.9.0.1/storm-core-0.9.0.1.jar!/" />
+      <root url="jar://D:/Tools/storm-0.9.0.1/storm-0.9.0.1/storm-netty-0.9.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/Tools/storm-0.9.0.1/storm-0.9.0.1/storm-core-0.9.0.1.jar!/" />
+      <root url="jar://D:/Tools/storm-0.9.0.1/storm-0.9.0.1/storm-netty-0.9.0.1.jar!/jvm" />
+      <root url="jar://D:/Tools/storm-0.9.0.1/storm-0.9.0.1/storm-netty-0.9.0.1.jar!/" />
+    </SOURCES>
+  </library>
+</component>

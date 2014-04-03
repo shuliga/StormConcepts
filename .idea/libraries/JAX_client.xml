@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="JAX-client">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jackson-core-asl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jackson-jaxrs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jackson-mapper-asl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jersey-client.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jersey-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/jersey-multipart.jar!/" />
+      <root url="jar://$PROJECT_DIR$/HttpClient/lib/mimepull.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

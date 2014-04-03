@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact name="PharmacyData">
+    <output-path>$PROJECT_DIR$/out/artifacts/PharmacyData</output-path>
+    <root id="root">
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="gson-2.2.4" />
+        <element id="library" level="project" name="imqjms" />
+        <element id="library" level="project" name="JAX-client" />
+        <element id="library" level="project" name="jms" />
+      </element>
+      <element id="archive" name="PharmacyData.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/PharmacyData/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="Commons" />
+        <element id="module-output" name="EventAPI" />
+        <element id="module-output" name="HttpClient" />
+        <element id="module-output" name="PharmacyData" />
+        <element id="module-output" name="Starter" />
+      </element>
+    </root>
+  </artifact>
+</component>

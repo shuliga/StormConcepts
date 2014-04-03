@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="imqjms">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/imqjms" />
+      <root url="file://$PROJECT_DIR$/lib/imqjms" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/imqjms" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/imqjms" recursive="false" />
+  </library>
+</component>

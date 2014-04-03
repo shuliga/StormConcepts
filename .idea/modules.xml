@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Commons/Commons.iml" filepath="$PROJECT_DIR$/Commons/Commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EventAPI/EventAPI.iml" filepath="$PROJECT_DIR$/EventAPI/EventAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HttpClient/HttpClient.iml" filepath="$PROJECT_DIR$/HttpClient/HttpClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/HttpPushSpout/HttpPushSpout.iml" filepath="$PROJECT_DIR$/HttpPushSpout/HttpPushSpout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PharmacyData/PharmacyData.iml" filepath="$PROJECT_DIR$/PharmacyData/PharmacyData.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Starter/Starter.iml" filepath="$PROJECT_DIR$/Starter/Starter.iml" />
       <module fileurl="file://$PROJECT_DIR$/StormConcepts.iml" filepath="$PROJECT_DIR$/StormConcepts.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StreamsHttpClient/StreamsHttpClient.iml" filepath="$PROJECT_DIR$/StreamsHttpClient/StreamsHttpClient.iml" />
     </modules>
   </component>
 </project>
